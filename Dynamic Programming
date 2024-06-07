@@ -1,1 +1,22 @@
+----------------------date:07/06/2024----------------------------------------------
+P1:Frog Jump
+SOL1:Memoization Approach[TC:O(N),SC:(O(N)for recur stack space + O(N)for dp array)]
+import sys
+import math
+def solve(ind, heights, dp):
+    if ind == 0:
+        return 0
+    if dp[ind] != -1:
+        return dp[ind]
+    jumpTwo = sys.maxsize
+    jumpOne = solve(ind-1, heights, dp) + abs(heights[ind] - heights[ind-1])
+    if ind > 1:
+        jumpTwo = solve(ind-2, heights, dp) + abs(heights[ind] - heights[ind-2])
+    dp[ind] = min(jumpOne, jumpTwo)
+    return dp[ind]
 
+if __name__ == "__main__":
+    heights = [int(x) for x in input("enter height separated by spaces: ").split()]
+    n = len(heights)
+    dp = [-1] * n
+    print(solve(n-1, heights, dp))
