@@ -20,3 +20,22 @@ if __name__ == "__main__":
     n = len(heights)
     dp = [-1] * n
     print(solve(n-1, heights, dp))
+
+SOL2:Tabulation Approach[TC:O(N),SC:O(N)only array space]
+import sys
+import math
+def main():
+    heights = [int(x) for x in input("enter height separated by spaces: ").split()]
+    n = len(heights)
+    dp = [-1 for _ in range(n)]
+    dp[0] = 0
+    for ind in range(1,n):
+        jumpTwo = float('inf')
+        jumpOne = dp[ind-1] + abs(heights[ind] - heights[ind-1])
+        if ind > 1:
+            jumpTwo = dp[ind-2] + abs(heights[ind] - heights[ind-2])
+        dp[ind] = min(jumpOne, jumpTwo)
+    print(dp[n-1])
+
+if __name__ == "__main__":
+    main()
