@@ -39,3 +39,24 @@ def main():
 
 if __name__ == "__main__":
     main()
+
+SOL3:Space Optimization Approach[TC:O(N),O(1)]
+import sys
+import math
+def main():
+    heights = [int(x) for x in input("enter height separated by spaces: ").split()]
+    n = len(heights)
+    prev = 0
+    prev2 = 0
+    for i in range(1,n):
+        jumpTwo = sys.maxsize
+        jumpOne = prev + abs(heights[i] - heights[i-1])
+        if i > 1:
+            jumpTwo = prev2 + abs(heights[i] - heights[i-2])
+        curr_i = min(jumpOne, jumpTwo)
+        prev2 = prev
+        prev = curr_i
+    print(prev)
+
+if __name__ == "__main__":
+    main()
