@@ -117,7 +117,10 @@ if __name__ == "__main__":
     main()
 
 --------------------------------date:09/06/2024---------------------------------
-P3:House Robber[TC:O(N),SC:O(N)+O(N)---O(N)]....Memoization Approach
+P3:House Robber[TC:O(N),SC:O(N)+O(N)---O(N)]....
+
+M1:Memoization Approach
+
 import sys
 
 def solveUtil(nums, ind, dp):
@@ -144,6 +147,47 @@ def solve(nums, n):
     dp = [-1] * n
 
     return solveUtil(nums, n-1, dp)
+def main():
+
+    nums = [int(x) for x in input("enter nums separated by spaces: ").split()]
+
+    n = len(nums)
+
+    result = solve(nums, n)
+
+    print(result)
+
+if __name__ == "__main__":
+
+    main()
+
+M2:Tabulation Approach[TC:O(N)Iterative Loop,SC:O(N)Array of size n+1]
+
+import sys
+
+def solveUtil(nums, n, dp):
+
+    dp[0] = nums[0]
+
+    for i in range(1, n):
+
+        pick = nums[i]
+
+        if i > 1:
+
+            pick += dp[i-2]
+
+        nonPick = 0 + dp[i-1]
+
+        dp[i] = max(pick, nonPick)
+
+    return dp[n-1]
+
+def solve(nums, n):
+
+    dp = [-1] * n
+
+    return solveUtil(nums, n, dp)
 def main():
 
     nums = [int(x) for x in input("enter nums separated by spaces: ").split()]
