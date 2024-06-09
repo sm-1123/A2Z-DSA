@@ -201,3 +201,45 @@ def main():
 if __name__ == "__main__":
 
     main()
+
+M3:Space Optimization[TC:O(N)-iterative loop,SC:O(1)]
+
+import sys
+
+def solve(nums, n):
+
+    prev = nums[0]
+
+    prev2 = 0
+
+    for i in range(1, n):
+
+        pick = nums[i]
+
+        if i > 1:
+
+            pick += prev2
+
+        nonPick = 0 + prev
+
+        curr_i = max(pick, nonPick)
+
+        prev2 = prev
+
+        prev = curr_i
+
+    return prev
+
+def main():
+
+    nums = [int(x) for x in input("enter nums separated by spaces: ").split()]
+
+    n = len(nums)
+
+    result = solve(nums, n)
+
+    print(result)
+
+if __name__ == "__main__":
+
+    main()
