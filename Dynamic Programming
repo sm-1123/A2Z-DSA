@@ -243,3 +243,79 @@ def main():
 if __name__ == "__main__":
 
     main()
+
+P4:House Robber 2:[TC;O(N) + O(N)..Two times iter loop, SC:O(1)]
+
+import sys
+def solve(nums):
+
+    n = len(nums)
+
+    if n == 0:
+
+        return 0
+
+    if n == 1:
+
+        return nums[0]
+
+    prev = nums[0]
+
+    prev2 = 0
+
+    for i in range(1, n):
+
+        pick = nums[i]
+
+        if i > 1:
+
+            pick += prev2
+
+        nonPick = 0 + prev
+
+        curr_i = max(pick, nonPick)
+
+        prev2 = prev
+
+        prev = curr_i
+
+    return prev
+
+def robStreet(nums, n):
+
+    arr1 = []
+
+    arr2 = []
+
+    if n == 1:
+
+        return nums[0]
+
+    for i in range(n):
+
+        if i != 0:
+
+            arr1.append(nums[i])
+
+        if i != n-1:
+
+            arr2.append(nums[i])
+
+        ans1 = solve(arr1)
+
+        ans2 = solve(arr2)
+
+    return max(ans1, ans2)
+def main():
+
+    nums = [int(x) for x in input("enter nums separated by spaces: ").split()]
+
+    n = len(nums)
+
+    result = robStreet(nums, n)
+
+    print(result)
+
+if __name__ == "__main__":
+
+    main()
