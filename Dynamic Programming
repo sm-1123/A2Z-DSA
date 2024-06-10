@@ -381,3 +381,56 @@ if __name__ == "__main__":
         ob = Solution()
 
         print(ob.maximumPoints(points, n))
+
+M2:Space Optimization[TC:O(N*4*3),SC:O(4)]
+
+import sys
+
+class Solution:
+    def maximumPoints(self, points, n):
+
+        prev = [0] * 4
+
+        prev[0] = max(points[0][1], points[0][2])
+
+        prev[1] = max(points[0][0], points[0][2])
+
+        prev[2] = max(points[0][0], points[0][1])
+
+        prev[3] = max(points[0][0], points[0][1], points[0][2])
+
+        for day in range(1, n):
+
+            temp = [0] * 4
+
+            for last in range(4):
+
+                temp[last] = 0
+
+                for task in range(3):
+
+                    if task != last:
+
+                        activity = points[day][task] + prev[task]
+
+                        temp[last] = max(temp[last], activity)
+
+
+            prev = temp
+
+
+        return prev[3]
+
+if __name__ == "__main__":
+
+    t = int(input("Enter number of test cases: "))
+
+    for _ in range(t):
+
+        n = int(input())
+
+        points = [list(map(int, input().split())) for _ in range(n)]
+
+        ob = Solution()
+
+        print(ob.maximumPoints(points, n))
