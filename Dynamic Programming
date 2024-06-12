@@ -864,3 +864,43 @@ def minSubsetSumDifference(arr: List[str], n: int) -> int:
     return mini                        
     # write your code here
     pass
+
+P15:Count Subsets with Sum K
+
+SPACE OPTIMIZATION[TC:O(N*K),SC:O(K)]
+
+def findWays(arr: List[int], k: int) -> int:
+
+    n = len(arr)
+
+    prev = [0 for i in range(k+1)]
+
+    prev[0] = 1
+
+    if arr[0] <= k:
+
+        prev[arr[0]] = 1
+
+    for ind in range(1,n):
+
+        curr = [0 for i in range(k+1)]
+
+        curr[0] = 1
+
+        for target in range(1, k+1):
+
+            notTaken = prev[target]
+
+            taken = 0
+
+            if arr[ind] <= target:
+
+                taken = prev[target - arr[ind]]
+
+            curr[target] = notTaken + taken
+
+        prev = curr
+
+    return prev[k]                
+    # Write your code here.
+    pass
