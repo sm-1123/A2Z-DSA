@@ -1022,3 +1022,46 @@ if __name__ == "__main__":
 
     takeInput()         
 
+P18:Minimum Elements[SPACE OPTIMIZATION TC:O(N*X),SC:O(X)]
+
+def minimumElements(num: List[int], x: int) -> int:
+
+    n = len(num)
+
+    prev = [0] * (x + 1)
+
+    curr = [0] * (x + 1)
+
+    for i in range(0, x+1):
+
+        if i % num[0] == 0:
+
+            prev[i] = i // num[0]
+
+        else:
+
+            prev[i] = int(1e9)
+
+    for ind in range(1, n):
+
+        for target in range(x+1):
+
+            notTake = prev[target]
+
+            take = int(1e9)
+
+            if num[ind] <= target:
+
+                take = 1 + prev[target - num[ind]]
+
+            curr[target] = min(notTake, take)
+
+        prev = curr
+
+    ans = prev[x]
+
+    if ans >= int(1e9):
+
+        return -1
+
+    return ans  
