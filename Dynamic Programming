@@ -1100,3 +1100,29 @@ def countWaysToMakeChange(denominations, value) :
         prev = curr
 
     return prev[value]      
+
+P20:Unbounded Knapsack[SPACE OPTIMIZATION-TC:O(N*W),SC:O(W)]
+
+def unboundedKnapsack(n: int, w: int, profit: List[int], weight: List[int]) -> int:
+
+    curr = [0] * (w + 1)
+
+    for i in range(weight[0], w+1):
+
+        curr[i] = (i//weight[0])*profit[0]
+
+    for ind in range(1,n):
+
+        for cap in range(w+1):
+
+            notTaken = curr[cap]
+
+            taken = -sys.maxsize
+
+            if weight[ind] <= cap:
+
+                taken = profit[ind] + curr[cap - weight[ind]]
+
+            curr[cap] = max(notTaken, taken)
+
+    return curr[w]  
