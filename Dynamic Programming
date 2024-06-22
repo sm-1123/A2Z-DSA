@@ -1442,3 +1442,49 @@ def editDistance(str1, str2) :
         prev = curr.copy()
 
     return prev[m]        
+
+P28:Wildcard Pattern Matching[TC:O(M * N), SC:O(M)]-Failed test cases
+
+def isALLStars(pattern, i):
+
+    for j in range(1, i + 1):
+
+        if pattern[j - 1] != '*':
+
+            return False
+
+    return True        
+
+def wildcardMatching(pattern, text):
+
+    n = len(pattern)
+
+    m = len(text)
+
+    prev = [False for _ in range(m + 1)]
+
+    curr = [False for _ in range(m + 1)]
+
+    prev[0] = True
+
+    for i in range(1, n + 1):
+
+        curr[0] = isALLStars(pattern, i)
+
+        for j in range(1, m + 1):
+
+            if pattern[i - 1] == text[j - 1] or pattern[i - 1] == '?':
+
+                curr[j] = prev[j - 1]
+
+            elif pattern[i - 1] == '*':
+
+                curr[j] = prev[j] or curr[j - 1]
+
+            else:
+
+                curr[j] = False
+
+        prev, curr = curr, [False for _ in range(m + 1)]
+
+    return prev[m]  
