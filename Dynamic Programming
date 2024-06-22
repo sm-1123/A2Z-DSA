@@ -1407,3 +1407,38 @@ class Solution:
                     prev[j] = prev[j]
 
         return prev[m]                
+------------------------------------date:22/06/2024------------------------------------------------------
+P27:Edit Distance[SPACE OPTIMIZATION-TC:O(M*N),SC:O(2*N)]
+
+from sys import stdin
+import sys
+sys.setrecursionlimit(10**7) 
+def editDistance(str1, str2) :
+    
+    n = len(str1)
+
+    m = len(str2)
+
+    prev = [j for j in range(m+1)]
+
+    curr = [0] * (m+1)
+
+    for i in range(1, n+1):
+
+        curr[0] = i
+
+        for j in range(1, m+1):
+
+            if str1[i-1] == str2[j-1]:
+
+                curr[j] = prev[j-1]
+
+            else:
+
+                mn = min(1  + prev[j], 1 + curr[j-1])
+
+                curr[j] = min(mn, 1 + prev[j-1])
+
+        prev = curr.copy()
+
+    return prev[m]        
