@@ -1488,3 +1488,24 @@ def wildcardMatching(pattern, text):
         prev, curr = curr, [False for _ in range(m + 1)]
 
     return prev[m]  
+.............DP ON STOCKS..................................................
+
+P29:Best Time to Buy and Sell Stock[TC:O(N),SC:O(1)]
+
+def maximumProfit(prices):
+
+    maxProfit = 0
+
+    mini = prices[0]
+
+    n = len(prices)
+
+    for i in range(1, n):
+
+        currProfit = prices[i] - mini
+
+        maxProfit = max(maxProfit, currProfit)
+
+        mini = min(mini, prices[i])
+
+    return maxProfit  
