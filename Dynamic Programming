@@ -1509,3 +1509,49 @@ def maximumProfit(prices):
         mini = min(mini, prices[i])
 
     return maxProfit  
+
+-------------------date:23/06/2024--------------------------------------------------------
+
+P30:Divisible Set[TC:O(N^2),SC:O(N)]
+
+from typing import List
+
+def divisibleSet(arr: List[int]) -> List[int]:
+
+    n = len(arr)
+
+    arr.sort(reverse = False)
+
+    divCnt = [1 for i in range(n)]
+
+    prev = [-1 for i in range(n)]
+
+    max_ind = 0
+
+    for i in range(1, n):
+
+        for j in range(i):
+
+            if arr[i] % arr[j] == 0:
+
+                if divCnt[i] < divCnt[j] + 1:
+
+                    divCnt[i] = divCnt[j] + 1
+
+                    prev[i] = j
+
+        if divCnt[max_ind] < divCnt[i]:
+
+            max_ind = i
+
+    k = max_ind
+    
+    temp = []
+
+    while k >= 0:
+
+        temp.append(arr[k])
+
+        k = prev[k]
+
+    return temp    
