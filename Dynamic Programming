@@ -1641,3 +1641,42 @@ def longestBitonicSubsequence(arr: List[int], n: int) -> int:
         maxi = max(maxi, dp1[i] + dp2[i] - 1)
 
     return maxi    
+
+P33:Number of Longest Increasing Subsequences[TC:O(N*N),SC:O(N)]
+
+class Solution:
+    def findNumberOfLIS(self, nums: List[int]) -> int:
+        
+        n = len(nums)
+
+        dp = [1] * n
+
+        cnt = [1] * n
+
+        maxi = 1
+
+        for i in range(n):
+
+            for prev_idx in range(i):
+
+                if nums[prev_idx] < nums[i] and dp[prev_idx] + 1 > dp[i]:
+
+                    dp[i] = dp[prev_idx] + 1
+
+                    cnt[i] = cnt[prev_idx]
+
+                elif nums[prev_idx] < nums[i] and dp[prev_idx] + 1 == dp[i]:
+
+                    cnt[i] += cnt[prev_idx]
+
+            maxi = max(maxi, dp[i])
+
+        no_of_lis = 0
+
+        for i in range(n):
+
+            if dp[i] == maxi:
+
+                no_of_lis += cnt[i]
+
+        return no_of_lis                        
