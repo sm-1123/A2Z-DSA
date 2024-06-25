@@ -56,5 +56,65 @@ def bellmonFord(n, m, src, edges):
 
     return dist
     
+P3:Check Bipartite Graph[TC:O(V + 2E), SC:O(3V)]
+
+from collections import deque
+
+def bfs(i, color, adj):
+
+    q = deque()
+
+    color[i] = 0
+
+    q.append(i)
+
+    while q:
+
+        node = q.popleft()
+
+        for neighbor in adj[node]:
+
+            if color[neighbor] == -1:
+
+                color[neighbor] = 1 - color[node]
+
+                q.append(neighbor)
+
+            elif color[neighbor] == color[node]:
+
+                return False
+
+    return True                
+
+def isGraphBirpartite(edges):
+
+    n = len(edges)
+
+    color = [-1] * n
+
+    adj = [[] for _ in range(n)]
+
+    for i in range(n):
+
+        for j in range(n):
+
+            if edges[i][j]:
+
+                adj[i].append(j)
+
+                adj[j].append(i)
+
+    for i in range(n):
+
+        if color[i] == -1:
+
+            if not bfs(i, color, adj):
+
+                return False
+
+    return True
+
+    #Write your code here.
+    
 
 
