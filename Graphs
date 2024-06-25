@@ -224,3 +224,49 @@ def graphColoring(mat: List[List[int]], m: int) -> str:
     # Write your code here
 
     pass 
+
+P6:Topological Sort[TC:O(V + E), SC:O(V + E)]
+
+def dfs(node, vis, stk, adj_list):
+
+    vis[node] = True
+
+    for neighbor in adj_list[node]:
+
+        if not vis[neighbor]:
+
+            dfs(neighbor, vis, stk, adj_list)
+
+    stk.append(node)        
+
+def topologicalSort(adj, v, e):
+
+    adj_list = {}
+
+    for i in range(v):
+
+        adj_list[i] = []
+
+    for i in range(e):
+
+        u, w = adj[i]
+
+        adj_list[u].append(w)
+
+    vis = [False] * v
+
+    stk = []
+
+    for i in range(v):
+
+        if not vis[i]:
+
+            dfs(i, vis, stk, adj_list)
+
+    stk.reverse()
+
+    return stk    
+
+    # Write your code here
+
+    pass
