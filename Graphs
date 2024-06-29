@@ -356,3 +356,55 @@ def isSafe(mat, n, m, x, y):
         return False
             
     return True
+
+P9:Is Graph Tree?[TC:O(V + E), SC:O(V + E)]
+
+def helper(adj, vis, parent, curr):
+
+    vis[curr] = True
+
+    for it in adj[curr]:
+
+        if not vis[it]:
+
+            parent[it] = curr
+
+            if helper(adj, vis, parent, it):
+
+                return True
+
+            parent[it] = -1
+
+        elif parent[curr] != it:
+
+            return True
+            
+    return False
+
+def hasCycle(adj, n):
+
+    vis = [False] * n
+
+    parent = [-1] * n
+
+    for i in range(n):
+
+        if not vis[i] and helper(adj, vis, parent, i):
+
+            return True
+
+    return False
+
+def isGraphTree(n: int, edgeList: list):
+    # Write your code here.
+    adj = [[] for _ in range(n)]
+
+    for u, v in edgeList:
+
+        adj[u].append(v)
+
+        adj[v].append(u)
+
+    return not hasCycle(adj, n)
+    
+    pass
