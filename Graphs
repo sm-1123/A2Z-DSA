@@ -315,3 +315,44 @@ def calculatePrimsMST(n, m, g):
 
     
     return ans
+
+P8:Shortest Path in a Binary Matrix[TC:O(4*N*M), SC:O(N*M)]
+
+def findShortestPath(mat, sourceX, sourceY, destX, destY, n, m):
+        
+        move = [(0, 1), (0, -1), (1, 0), (-1, 0)]
+        
+        q = deque([(sourceX, sourceY)])
+        
+        dist = [[0] * (m + 1) for _ in range(n + 1)]
+        
+        while q:
+
+            x, y = q.popleft()
+            
+            if x == destX and y == destY:
+
+                return dist[destX][destY] + 1
+            
+            for dx, dy in move:
+
+                newX, newY = x + dx, y + dy
+                
+                if isSafe(mat, n, m, newX, newY):
+
+                    dist[newX][newY] = dist[x][y] + 1
+
+                    mat[newX][newY] = 0
+
+                    q.append((newX, newY))
+        
+        return -1
+    
+@staticmethod
+def isSafe(mat, n, m, x, y):
+        
+    if x < 0 or x >= n or y < 0 or y >= m or mat[x][y] == 0:
+
+        return False
+            
+    return True
