@@ -408,3 +408,42 @@ def isGraphTree(n: int, edgeList: list):
     return not hasCycle(adj, n)
     
     pass
+
+------------------------date:19/07/2024-------------------------------------------------
+P10:BFS in Graph[TC:O(n + e),SC:O(n)]
+
+from typing import List
+
+from collections import deque
+
+def bfsTraversal(n: int, adj: List[List[int]]) -> List[int]:
+    # write your code here
+    q = deque()
+
+    vis = set()
+
+    res = []
+
+    start_node = 0
+
+    q.append(start_node)
+
+    vis.add(start_node)
+
+    while(q):
+
+        node = q.popleft()
+
+        res.append(node)
+
+        for neighbour in adj[node]:
+
+            if neighbour not in vis:
+
+                q.append(neighbour)
+
+                vis.add(neighbour)
+
+    return res
+                
+    pass
